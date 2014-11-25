@@ -1,0 +1,19 @@
+# Script Name: EpicenterBuffers
+# Description: Creates 10, 50, and 100 KM
+#              buffers around a point
+# Created By:  Kirstyn Pittman
+# Date:        11/24/14
+
+import arcpy
+arcpy.env.overwriteOutput = True
+myPath = arcpy.GetParameterAsText(0)
+arcpy.env.workspace = myPath
+arcpy.AddMessage("Workspace set to: "+ myPath)
+OutFeatureLoc = r"C:\GISData\10345_01_VineyardPointe\Buffer"
+shp = "Location" #This must be the name of the Shapefile
+distanceList = ["10 kilometers","50 kilometers","100 kilometers"]
+# Loop through each distance in the distanceList
+for dist in distanceList:
+    outName = OutFeatureLoc+"_"+dist
+    arcpy.Buffer_analysis(shp, outName, dist)
+print "Finished Buffering"
